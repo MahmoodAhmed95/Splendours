@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
-import * as userService from '../../utilities/users-service';
+import { Link } from "react-router-dom";
+import * as userService from "../../utilities/users-service";
 
 export default function NavBar({ user, setUser }) {
-
   function handleLogOut() {
     // Remove token using the user service
     userService.logOut();
@@ -12,13 +11,23 @@ export default function NavBar({ user, setUser }) {
 
   return (
     <nav>
-      <Link to="/orders">Order History</Link>
+      <Link to="/">Home</Link>
       &nbsp; | &nbsp;
-      <Link to="/orders/new">New Order</Link>
+      <Link to="/categories">Categories</Link>
       &nbsp; | &nbsp;
+      <Link to="/bookmark">Book Mark</Link>
+      &nbsp; | &nbsp;
+      <Link to="/userbids">My bids</Link>
+      &nbsp; | &nbsp;
+      <Link to="/profile">My profile</Link>
+      &nbsp; | &nbsp;
+      {user.userType ? <Link to="/newpost">New Post</Link> : ""}
+      &nbsp; &nbsp;
       <span>Welcome, {user.name}</span>
       &nbsp; | &nbsp;
-      <Link to="" onClick={handleLogOut}>Log Out</Link>
+      <Link to="" onClick={handleLogOut}>
+        Log Out
+      </Link>
     </nav>
   );
 }
