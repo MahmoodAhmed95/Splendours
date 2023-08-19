@@ -23,6 +23,8 @@ export default function NavBar({ user, setUser }) {
       &nbsp; | &nbsp;
       {user.userType ? <Link to="/newpost">New Post</Link> : ""}
       &nbsp; &nbsp;
+      {user.isAdmin ? <Link to="/admin">Admin Page</Link> : ""}
+      &nbsp; &nbsp;
       <span>Welcome, {user.name}</span>
       &nbsp; | &nbsp;
       <Link to="" onClick={handleLogOut}>

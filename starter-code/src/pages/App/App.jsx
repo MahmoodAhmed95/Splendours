@@ -10,6 +10,7 @@ import BookMarksPage from "../BookMarksPage/BookMarksPage";
 import UserBidsPage from "../UserBidsPage/UserBidsPage";
 import ProfilePage from "../ProfilePage/PofilePage";
 import NewPostPage from "../NewPostPage/NewPostPage";
+import AdminPage from "../AdminPage/AdminPage";
 
 function App() {
   const [user, setUser] = useState(getUser());
@@ -29,7 +30,8 @@ function App() {
               path="/profile"
               element={<ProfilePage setUser={setUser} user={user} />}
             />
-            <Route path="/newpost" element={<NewPostPage />} />
+            <Route path="/newpost" element={<NewPostPage user={user} />} />
+            <Route path="/admin" element={<AdminPage user={user} />} />
           </Routes>
           {/* <h1>Home Page</h1> */}
         </>
