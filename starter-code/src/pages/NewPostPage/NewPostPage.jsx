@@ -23,7 +23,7 @@ export default function NewPostPage({ user }) {
         </label>
         <br />
         <label>
-          Bid Cost By BHD:
+          Bid Start By BHD:
           <input type="number" name="bidCost" placeholder="Minimum 50BHD" />
         </label>
         <br />
