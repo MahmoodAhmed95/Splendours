@@ -11,22 +11,14 @@ export default function NavBar({ user, setUser }) {
 
   return (
     <nav>
+      <span>Welcome {user.name}</span>
       <Link to="/">Home</Link>
-      &nbsp; | &nbsp;
       <Link to="/categories">Categories</Link>
-      &nbsp; | &nbsp;
       <Link to="/bookmark">Book Mark</Link>
-      &nbsp; | &nbsp;
       <Link to="/userbids">My bids</Link>
-      &nbsp; | &nbsp;
       <Link to="/profile">My profile</Link>
-      &nbsp; | &nbsp;
       {user.userType ? <Link to="/newpost">New Post</Link> : ""}
-      &nbsp; &nbsp;
       {user.isAdmin ? <Link to="/admin">Admin Page</Link> : ""}
-      &nbsp; &nbsp;
-      <span>Welcome, {user.name}</span>
-      &nbsp; | &nbsp;
       <Link to="" onClick={handleLogOut}>
         Log Out
       </Link>

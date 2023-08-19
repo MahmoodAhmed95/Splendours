@@ -1,7 +1,25 @@
 .App {
   text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar content"
+    "sidebar content"
+    "sidebar content"
+    "sidebar content"
+    "sidebar  footer";
 }
-
+@media (max-width: 500px) {
+  .App {
+    grid-template-columns: 4fr;
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "content"
+      "footer";
+  }
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +53,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+nav {
+  display: grid;
+  grid-area: sidebar;
+  color: black;
+  font-size: 20px;
+}
+Link:hover {
+  color: black;
+}
+.AdminPage {
+  grid-area: content;
 }
