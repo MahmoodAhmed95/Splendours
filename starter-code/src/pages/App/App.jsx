@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { getUser } from "../../utilities/users-service";
 import AuthPage from "../AuthPage/AuthPage";
@@ -11,9 +11,12 @@ import UserBidsPage from "../UserBidsPage/UserBidsPage";
 import ProfilePage from "../ProfilePage/PofilePage";
 import NewPostPage from "../NewPostPage/NewPostPage";
 import AdminPage from "../AdminPage/AdminPage";
+import PostDetailsPage from '../PostDetailsPage/PostDetailsPage'
 
 function App() {
   const [user, setUser] = useState(getUser());
+  console.log("user")
+  console.log(user)
 
   return (
     <main className="App">
@@ -22,10 +25,11 @@ function App() {
           <NavBar user={user} setUser={setUser} />
           <Routes>
             {/* Route components in here */}
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage user={user} setUser={setUser}/>} />
             <Route path="/categories" element={<CategoriesPage />} />
             <Route path="/bookmark" element={<BookMarksPage />} />
             <Route path="/userbids" element={<UserBidsPage />} />
+            <Route path="/details/:id" element={<PostDetailsPage/>} />
             <Route
               path="/profile"
               element={<ProfilePage setUser={setUser} user={user} />}
@@ -44,7 +48,7 @@ function App() {
           {/* <h1>Home Page</h1> */}
         </>
       ) : (
-        <AuthPage setUser={setUser} />
+        <AuthPage setUser={setUser} user={user}/>
       )}
     </main>
   );
