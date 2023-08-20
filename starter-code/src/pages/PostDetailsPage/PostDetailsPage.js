@@ -59,7 +59,7 @@ export default function PostDetailsPage() {
           <div>{item.reviews.content}</div>
           <div>{item.reviews.rating}</div>
           <div>{item.reviews.userName}</div>
-          <img src={item.posterPath} alt="pic" />
+          {/* <img src={item.posterPath} alt="pic" /> */}
         </div>
       </div>
     </nav>

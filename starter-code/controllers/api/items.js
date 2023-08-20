@@ -2,7 +2,7 @@ const Item = require("../../models/post");
 
 async function index(req, res) {
   try {
-    console.log("INSIDE");
+    // console.log("INSIDE");
     const items = await Item.find({})
       .sort("name")
       .populate("categoryId")
@@ -11,7 +11,7 @@ async function index(req, res) {
     // Sort items based on the sortOrder of the categories
     // items.sort((a, b) => a.category.sortOrder - b.category.sortOrder);
 
-    console.log("items ====>", items);
+    // console.log("items ====>", items);
     res.json(items);
   } catch (error) {
     console.error(error);

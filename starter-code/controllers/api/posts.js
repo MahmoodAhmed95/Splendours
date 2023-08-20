@@ -1,15 +1,11 @@
-// const cloudinary = require("../utils/cloudinary");
-
 // const category = require("../../models/category");
 const Post = require("../../models/post");
+const cloudinary = require("../../utils/cloudinary");
 
 module.exports = {
   addPost,
 };
 async function addPost(req, res) {
-  //   const result = await cloudinary.uploader.upload(req.file.path);
-  //   req.body.profile_img = result.secure_url;
-  //   req.body.cloudinary_id = result.public_id;
   const post = {
     name: req.body.name,
     description: req.body.description,
@@ -19,7 +15,13 @@ async function addPost(req, res) {
     endDate: req.body.endDate,
     timeDuration: req.body.timeDuration,
     profile_img: req.body.profile_img,
+    // profile_img: result.secure_url, // Save the image URL from Cloudinary
+    // cloudinary_id: result.public_id, // Save the public ID from Cloudinary
   };
+
+  // const result = await cloudinary.uploader.upload(req.file.path);
+  // req.body.profile_img = result.secure_url;
+  // req.body.cloudinary_id = result.public_id;
   console.log(post);
   try {
     const postName = await Post.findOne({ name: req.body.name });

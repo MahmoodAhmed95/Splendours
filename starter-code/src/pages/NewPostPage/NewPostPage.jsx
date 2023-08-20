@@ -37,6 +37,15 @@ export default function NewPostPage() {
     }
     returnCategories();
   }, []);
+
+  //handle the image
+  // function handleImageChange(event) {
+  //   const file = event.target.files[0];
+  //   setPost((prevPost) => ({
+  //     ...prevPost,
+  //     profile_img: file,
+  //   }));
+  // }
   return (
     <>
       <h1>New Post Page</h1>
