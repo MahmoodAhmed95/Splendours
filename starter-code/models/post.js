@@ -34,11 +34,10 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
-    // categoryId: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "Category",
-    //   required: true,
-    // },
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: "Category",
+    },
     bidCost: {
       type: Number,
       default: 50,

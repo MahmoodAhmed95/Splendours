@@ -2,6 +2,7 @@ const Category = require("../../models/category");
 
 module.exports = {
   addCategory,
+  showCategory,
 };
 async function addCategory(req, res) {
   const category = new Category({
@@ -19,4 +20,9 @@ async function addCategory(req, res) {
   } catch (error) {
     res.json("error");
   }
+}
+async function showCategory(req, res) {
+  const categories = await Category.find({});
+  // console.log(categories);
+  res.json(categories);
 }
