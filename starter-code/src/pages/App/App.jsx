@@ -30,8 +30,16 @@ function App() {
               path="/profile"
               element={<ProfilePage setUser={setUser} user={user} />}
             />
-            <Route path="/newpost" element={<NewPostPage user={user} />} />
-            <Route path="/admin" element={<AdminPage user={user} />} />
+            {user.userType ? (
+              <Route path="/newpost" element={<NewPostPage user={user} />} />
+            ) : (
+              ""
+            )}
+            {user.isAdmin ? (
+              <Route path="/admin" element={<AdminPage user={user} />} />
+            ) : (
+              ""
+            )}
           </Routes>
           {/* <h1>Home Page</h1> */}
         </>
