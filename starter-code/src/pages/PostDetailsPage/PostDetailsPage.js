@@ -5,21 +5,21 @@ import { Link, useNavigate } from "react-router-dom";
 import * as itemsAPI from "../../utilities/items-api";
 
 export default function PostDetailsPage() {
-  const [items, setItems] = useState([]);
+  const [item, setItem] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
     async function fetchItems() {
       const fetchedItems = await itemsAPI.getById(id);
-      setItems(fetchedItems);
+      setItem(fetchedItems);
     }
 
     fetchItems();
   }, []);
 
   const navigate = useNavigate();
-  const item = items.find((item) => item._id === id);
   const [cart, setCart] = useState(null);
+
   async function handleAddToOrder(itemId) {
     // alert(`add item: ${itemId}`);
     // 1. Call the addItemToCart function in ordersAPI, passing to it the itemId, and assign the resolved promise to a variable named cart.
