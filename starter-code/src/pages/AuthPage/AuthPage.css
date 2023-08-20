@@ -1,12 +1,16 @@
 .auth-page {
     color:  var(--text-dark);
     text-align: center;
-    font: 700 16px "Amatic SC", sans-serif; 
+    /* font: 700 16px "Amatic SC", sans-serif;  */
     position: relative;
     align-self: stretch;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 20px;
+  }
+
+  .auth-link {
+    color: var(--brand-primary-color);
   }
   

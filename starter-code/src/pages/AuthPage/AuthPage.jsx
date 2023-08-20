@@ -19,7 +19,7 @@ export default function AuthPage({ user, setUser }) {
           )}
           <p>
             {showSignUp ? "Already have an account? " : "Don't have an account? "}
-            <a onClick={() => setShowSignUp(!showSignUp)}>
+            <a onClick={() => setShowSignUp(!showSignUp)}className="auth-link">
               {showSignUp ? "Log In" : "Sign Up"}
             </a>
           </p>
