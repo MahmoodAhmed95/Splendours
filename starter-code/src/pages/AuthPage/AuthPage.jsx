@@ -18,7 +18,7 @@ export default function AuthPage({ user, setUser }) {
             <LoginForm setUser={setUser} user={user} />
           )}
           <p>
-            {showSignUp ? "Already have an account?" : "Don't have an account?"}
+            {showSignUp ? "Already have an account? " : "Don't have an account? "}
             <a onClick={() => setShowSignUp(!showSignUp)}>
               {showSignUp ? "Log In" : "Sign Up"}
             </a>
