@@ -6,13 +6,19 @@ export default function MenuListItem({ menuItem, handleAddToOrder }) {
     return (
         <Link to={`/details/${menuItem._id}`} className="details-link">
       <div className="MenuListItem">
-        <div className="emoji flex-ctr-ctr">{menuItem.emoji}</div>
-        <div className="name">{menuItem.name}</div>
-        <div className="buy">
-          <span>${menuItem.price.toFixed(2)}</span>
+        
+        <div className="name">{menuItem.description}</div>
+        <div className="name">{menuItem.startDate}</div>
+        <div className="name">{menuItem.endDate}</div>
+        <div className="name">{menuItem.timeDuration}</div>
+        <div className="name">{menuItem.profile_img}</div>
+        <div className="name">{menuItem.endDate}</div>
+
+
+          <span>${menuItem.bidCost.toFixed(2)}</span>
           
         </div>          
-      </div>
+      
         </Link>
     );
   }

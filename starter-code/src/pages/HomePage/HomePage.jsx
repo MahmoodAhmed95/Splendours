@@ -12,14 +12,17 @@ export default function HomePage({ user, setUser }) {
   const categoriesRef = useRef([]);
 
   useEffect(() => {
+    console.log("iam here");
     async function getItems() {
       const items = await itemsAPI.getAll();
-      categoriesRef.current = [...new Set(items.map(item => item.category.name))];
+      console.log(`items ===> ${items[0].name}`)
+      categoriesRef.current = [...new Set(items.map((item) => item.categoryId.name))];
       setMenuItems(items);
       setActiveCat(categoriesRef.current[0]);
     }
     getItems();
   }, []);
+
 
   return (
     <main className="HomePage">
@@ -31,7 +34,7 @@ export default function HomePage({ user, setUser }) {
         />
         <Link to="/orders" className="button btn-sm">PREVIOUS ORDERS</Link>
           <MenuList
-            menuItems={menuItems.filter(item => item.category.name === activeCat)}
+            menuItems={menuItems.filter(item => item.categoryId.name === activeCat)}
           />
       </aside>
         <UserLogOut user={user} setUser={setUser} />

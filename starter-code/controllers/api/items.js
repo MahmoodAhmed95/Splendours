@@ -1,12 +1,22 @@
 const Item = require("../../models/post");
 
 async function index(req, res) {
-  console.log(`INSIDE`);
-  const items = await Item.find({}).sort("name").populate("category").exec();
-  console.log(`items ====> ${items}`);
-  // re-sort based upon the sortOrder of the categories
-  items.sort((a, b) => a.category.sortOrder - b.category.sortOrder);
-  res.json(items);
+  try {
+    console.log("INSIDE");
+    const items = await Item.find({})
+      .sort("name")
+      .populate("categoryId")
+      .exec();
+
+    // Sort items based on the sortOrder of the categories
+    // items.sort((a, b) => a.category.sortOrder - b.category.sortOrder);
+
+    console.log("items ====>", items);
+    res.json(items);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
 }
 
 async function show(req, res) {
