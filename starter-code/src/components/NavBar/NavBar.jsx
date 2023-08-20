@@ -11,6 +11,7 @@ export default function NavBar({ user, setUser }) {
 
   return (
     <nav>
+      <img src="http://i.imgur.com/Lp5HN9F.png" alt="Logo" className="logo" id="SideBar-logo" />
       <span>Welcome {user.name}</span>
       <Link to="/">Home</Link>
       <Link to="/categories">Categories</Link>
