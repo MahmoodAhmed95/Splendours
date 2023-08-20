@@ -34,11 +34,11 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
-    category: {
-      type: Schema.Types.ObjectId,
-      ref: "Category",
-      required: true,
-    },
+    // categoryId: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Category",
+    //   required: true,
+    // },
     bidCost: {
       type: Number,
       default: 50,
@@ -59,12 +59,12 @@ const postSchema = new Schema(
     cloudinary_id: String,
     reviews: [reviewSchema],
 
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    userName: String,
+    // user: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    // },
+    // userName: String,
   },
   {
     timestamps: true,
