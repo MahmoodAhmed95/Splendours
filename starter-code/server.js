@@ -21,6 +21,9 @@ app.use(express.static(path.join(__dirname, "build")));
 app.use(require("./config/checkToken"));
 // Put all API routes here (before the catch-all)
 app.use("/api/users", require("./routes/api/users"));
+app.use("/api/items", require("./routes/api/items"));
+app.use("/api/categories", require("./routes/api/categories"));
+app.use("/api/posts", require("./routes/api/posts"));
 
 // "catch-all" route that will match all GET requests
 // that don't match an API route defined above

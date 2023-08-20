@@ -37,7 +37,6 @@ const postSchema = new Schema(
     categoryId: {
       type: Schema.Types.ObjectId,
       ref: "Category",
-      required: true,
     },
     bidCost: {
       type: Number,
@@ -59,12 +58,12 @@ const postSchema = new Schema(
     cloudinary_id: String,
     reviews: [reviewSchema],
 
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    userName: String,
+    // user: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    // },
+    // userName: String,
   },
   {
     timestamps: true,
