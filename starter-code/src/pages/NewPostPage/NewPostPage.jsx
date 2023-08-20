@@ -1,4 +1,5 @@
-import { useState } from "react";
+import * as categoryApi from "../../utilities/categories-api";
+import { useState , useEffect } from "react";
 import * as postApi from "../../utilities/posts-api";
 export default function NewPostPage() {
   const [post, setPost] = useState({
@@ -12,6 +13,7 @@ export default function NewPostPage() {
     profile_img: "",
   });
   const [alertMessage, setAlertMessage] = useState("");
+  const [category, setCategory] = useState([]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -27,6 +29,14 @@ export default function NewPostPage() {
     setPost({ ...post, [e.target.name]: e.target.value });
     setAlertMessage("");
   }
+  useEffect(() => {
+    async function returnCategories() {
+      const categories = await categoryApi.showCategory();
+      // console.log(categories);
+      setCategory(categories)
+    }
+    returnCategories();
+  }, []);
   return (
     <>
       <h1>New Post Page</h1>
@@ -58,9 +68,12 @@ export default function NewPostPage() {
             value={post.categoryId}
             onChange={handleOnChange}
           >
-            <option value="category1">category 1</option>
+            {category.map((c)=>{
+              return <option key={c._id} value={c._id}>{c.name}</option>
+            })}
+            {/* <option value="category1">category 1</option>
             <option value="category2">category 2</option>
-            <option value="category3">category 3</option>
+            <option value="category3">category 3</option> */}
           </select>
         </label>
         <br />
