@@ -1,11 +1,17 @@
 import "./MenuListItem.css";
 import { Link } from "react-router-dom";
-
 export default function MenuListItem({ menuItem, handleAddToOrder }) {
   return (
     <>
-      <Link to={`/details/${menuItem._id}`} className="details-link">
-        <div className="MenuListItem">
+      <div
+        className="MenuListItem"
+        style={{
+          backgroundImage: `url(${menuItem.profile_img})`,
+          backgroundSize: "cover",
+          // backgroundColor: `red`,
+        }}
+      >
+        <Link to={`/details/${menuItem._id}`} className="details-link">
           <div className="name">Post Name :{menuItem.name}</div>
           <br />
           <div className="name">Post Description :{menuItem.description}</div>
@@ -24,8 +30,8 @@ export default function MenuListItem({ menuItem, handleAddToOrder }) {
           <br />
 
           <span>Top Bid: ${menuItem.bidCost.toFixed(2)}</span>
-        </div>
-      </Link>
+        </Link>
+      </div>
       <br />
     </>
   );

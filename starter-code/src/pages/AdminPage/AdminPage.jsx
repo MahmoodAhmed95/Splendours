@@ -1,7 +1,9 @@
 import { useState } from "react";
 import * as categoryApi from "../../utilities/categories-api";
+import * as userApi from "../../utilities/users-api";
 
 export default function AdminPage({ user }) {
+  const [u, setU] = useState([]);
   const [category, setCategory] = useState({ name: "", icon: "" });
   const [alertMessage, setAlertMessage] = useState("");
   async function handleSubmit(e) {

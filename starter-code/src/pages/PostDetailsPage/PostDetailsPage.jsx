@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import * as ordersAPI from "../../utilities/orders-api";
 import { Link, useNavigate } from "react-router-dom";
 import * as itemsAPI from "../../utilities/items-api";
+import "./PostDetailsPage.css";
 
 export default function PostDetailsPage() {
   const [item, setItem] = useState([]);
@@ -44,6 +45,7 @@ export default function PostDetailsPage() {
   return (
     <div className="mainCard">
       <div className="card">
+        <img className="postPic" src={item.profile_img} />
         <div>{item.name}</div>
         <div>{item.description}</div>
         <div>{item.bidCost}</div>
@@ -51,9 +53,7 @@ export default function PostDetailsPage() {
         <div>{item.endDate}</div>
         <div>{item.timeDuration}</div>
         <div>{item.profile_img}</div>
-        <div>{item.cloudinary_id}</div>
-        <div>{item.user}</div>
-        <div>{item.userName}</div>
+        {/* <div>{item.cloudinary_id}</div> */}
         {item.reviews && item.reviews.content && (
           <div>{item.reviews.content}</div>
         )}
@@ -64,7 +64,9 @@ export default function PostDetailsPage() {
           <div>{item.reviews.userName}</div>
         )}
         <div>
-          <button onClick={() => handleAddToBookmarks(item._id)}>Add to bookmarks</button>
+          <button onClick={() => handleAddToBookmarks(item._id)}>
+            Add to bookmarks
+          </button>
         </div>
       </div>
     </div>

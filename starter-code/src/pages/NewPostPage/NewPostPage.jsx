@@ -131,7 +131,7 @@ export default function NewPostPage() {
         <label>
           Post Image:
           <input
-            type="file"
+            type="text"
             name="profile_img"
             value={post.profile_img}
             onChange={handleOnChange}

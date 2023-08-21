@@ -1,6 +1,7 @@
 // const category = require("../../models/category");
 const Post = require("../../models/post");
-// const cloudinary = require("../../utils/cloudinary");
+const cloudinary = require("../../utils/cloudinary");
+const path = require("path");
 
 module.exports = {
   addPost,
@@ -8,6 +9,10 @@ module.exports = {
 async function addPost(req, res) {
   // console.log(` User ==> `);
   // console.log(req.user);
+  // const result = await cloudinary.uploader.upload(req.file);
+  // req.body.profile_img = result.secure_url;
+  // req.body.cloudinary_id = result.public_id;
+  // console.log(req.body.cloudinary_id);
   const post = {
     name: req.body.name,
     description: req.body.description,
