@@ -11,5 +11,6 @@ export function getAll() {
 // what you might need if you have a, for example,
 // a MovieDetailPage component
 export function getById(id) {
+  console.log(`we got to the api`);
   return sendRequest(`${BASE_URL}/${id}`);
 }

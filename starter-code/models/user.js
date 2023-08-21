@@ -14,6 +14,12 @@ const userSchema = new Schema(
       lowercase: true,
       required: true,
     },
+    bookMarks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
     userType: { type: Boolean, required: true },
     isAdmin: { type: Boolean, default: false, required: true },
     password: {

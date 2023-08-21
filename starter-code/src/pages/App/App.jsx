@@ -32,7 +32,7 @@ function App() {
             <Route path="/categories" element={<CategoriesPage />} />
             <Route path="/bookmark" element={<BookMarksPage />} />
             <Route path="/userbids" element={<UserBidsPage />} />
-            <Route path="/:id" element={<PostDetailsPage />} />
+            <Route path="/details/:id" element={<PostDetailsPage />} />
             <Route
               path="/profile"
               element={<ProfilePage setUser={setUser} user={user} />}

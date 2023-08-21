@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const postsCtrl = require("../../controllers/api/posts");
+const savingsCtrl = require("../../controllers/api/savings");
 // const upload = require("../../utils/multer");
 
-router.post("/", postsCtrl.addPost);
+router.post("/", savingsCtrl.addBookmark);
 
 module.exports = router;
