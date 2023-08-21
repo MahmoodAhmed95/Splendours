@@ -58,12 +58,11 @@ const postSchema = new Schema(
     cloudinary_id: String,
     reviews: [reviewSchema],
 
-    // user: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "User",
-    //   required: true,
-    // },
-    // userName: String,
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
     timestamps: true,
