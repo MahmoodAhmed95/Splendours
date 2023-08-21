@@ -1,35 +1,35 @@
-import { signUp } from "../../utilities/users-service";
+import { useState } from "react";
+import * as editApi from "../../utilities/edits-api";
 
 export default function ProfilePage({ user }) {
-  const disable = user.password !== user.confirm;
+  const [alertMessage, setAlertMessage] = useState("");
+
+  const [update, setUpdate] = useState({
+    name: "",
+    password: "",
+    confirm: "",
+  });
   // new cvode // // // // // //
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     try {
-      const formData = { ...this.state };
-      delete formData.confirm;
-      delete formData.error;
-      // The promise returned by the signUp service method
-      // will resolve to the user object included in the
-      // payload of the JSON Web Token (JWT)
-      const user = await signUp(formData);
-      // Update user state with user
-      this.props.setUser(user);
+      const pas = await editApi.updatePass(update);
+      setUpdate(pas);
+      setAlertMessage("Password Updated Successfully");
     } catch {
-      // Invalid signup
-      this.setState({
-        error: "Sign Up Failed - Try Again",
-      });
+      setAlertMessage("Update Password Failed - Try Again");
     }
   };
 
   const handleChange = (evt) => {
-    this.setState({
+    setUpdate({
       [evt.target.name]: evt.target.value,
       error: "",
     });
   };
   // // // untill here // // //
+  const disable = user.password !== user.confirm;
+
   return (
     <>
       <h1>Profile Page</h1>
@@ -64,6 +64,7 @@ export default function ProfilePage({ user }) {
               Edit
             </button>
           </form>
+          <p className="error-message">&nbsp;{alertMessage}</p>
         </div>
       </div>
     </>
