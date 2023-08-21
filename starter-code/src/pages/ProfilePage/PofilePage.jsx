@@ -21,14 +21,19 @@ export default function ProfilePage({ user }) {
     }
   };
 
-  const handleChange = (evt) => {
-    setUpdate({
-      [evt.target.name]: evt.target.value,
-      error: "",
-    });
+  // const handleChange = (evt) => {
+  //   setUpdate({
+  //     [evt.target.name]: evt.target.value,
+  //     error: "",
+  //   });
+  // };
+  const [inputValue, setInputValue] = useState("");
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
   };
   // // // untill here // // //
-  const disable = user.password !== user.confirm;
+  const disable = update.password !== update.confirm;
 
   return (
     <>
@@ -38,9 +43,10 @@ export default function ProfilePage({ user }) {
           <form autoComplete="off" onSubmit={handleSubmit}>
             <label>Name</label>
             <input
+              autoComplete="off"
               type="text"
               name="name"
-              placeholder={user.name}
+              value={update.name}
               onChange={handleChange}
               required
             />
