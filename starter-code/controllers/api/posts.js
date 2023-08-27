@@ -1,49 +1,65 @@
 // const category = require("../../models/category");
+const cloudinary = require("../../config/cloudinary");
 const Post = require("../../models/post");
-const cloudinary = require("../../utils/cloudinary");
-const path = require("path");
 
 module.exports = {
   addPost,
+  deletePost,
+  showPost,
 };
+async function showPost(req, res) {
+  try {
+    const posts = await Post.find({});
+    // console.log(categories);
+    res.json(posts);
+  } catch (err) {
+    res.status(401).json({ message: "Error While Showing The posts" });
+  }
+}
 async function addPost(req, res) {
-  // console.log(` User ==> `);
-  // console.log(req.user);
-  // const result = await cloudinary.uploader.upload(req.file);
-  // req.body.profile_img = result.secure_url;
-  // req.body.cloudinary_id = result.public_id;
-  // console.log(req.body.cloudinary_id);
+  const image = req.body.image;
+  // this is an object containing the image details and url
+  const uploadedResponse = await cloudinary.uploader.upload(image);
   const post = {
     name: req.body.name,
     description: req.body.description,
     categoryId: req.body.categoryId,
     bidCost: req.body.bidCost,
-    startDate: req.body.startDate,
     endDate: req.body.endDate,
-    timeDuration: req.body.timeDuration,
-    profile_img: req.body.profile_img,
+    image: uploadedResponse.url,
     user: req.user,
-    // profile_img: result.secure_url, // Save the image URL from Cloudinary
-    // cloudinary_id: result.public_id, // Save the public ID from Cloudinary
+    increment: req.body.increment,
   };
-
-  // const result = await cloudinary.uploader.upload(req.file.path);
-  // req.body.profile_img = result.secure_url;
-  // req.body.cloudinary_id = result.public_id;
-  // console.log(post);
   try {
     const postName = await Post.findOne({ name: req.body.name });
     if (postName) {
-      res.json("Name already exist");
+      res.json({ message: "Name already exist" });
     } else {
-      // console.log("before");
       const newP = await Post.create(post);
-      // console.log("hello");
-      // console.log(newP);
       res.json(newP);
     }
   } catch (error) {
-    console.log(error);
-    res.json("error");
+    res.json({ message: "Error Adding Post Failed Try Again" });
+  }
+}
+
+async function deletePost(req, res) {
+  try {
+    const postId = req.params.id;
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: "Post Not Found" });
+    }
+
+    // Remove the Category from DB
+    post.deleteOne(post);
+
+    // Save the updated category document
+    await post.save();
+
+    res.json({ message: "Post deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
   }
 }

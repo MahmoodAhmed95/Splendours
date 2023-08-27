@@ -1,3 +1,29 @@
-/* .MenuList {
-  background-color: aquamarine;
-} */
+ .MenuList {
+  background-color: var(--greyscale);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Horizontal centering */
+  justify-content: center; /* Vertical centering */
+} 
+
+.MenuList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Media query for mobile view */
+@media (max-width: 768px) {
+  .MenuList {
+    align-items: stretch; /* Stretch items horizontally */
+  }
+
+  .MenuListItem {
+    width: 80%; /* Full width for mobile */
+  }
+
+  .MenuListItem img {
+    width: 50%; /* Shrink image to half its size */
+  }
+}

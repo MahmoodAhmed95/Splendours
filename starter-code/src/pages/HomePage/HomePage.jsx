@@ -1,10 +1,19 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as itemsAPI from "../../utilities/items-api";
 import "./HomePage.css";
-import { Link, useNavigate } from "react-router-dom";
 import MenuList from "../../components/MenuList/MenuList";
 import CategoryList from "../../components/CategoryList/CategoryList";
-import UserLogOut from "../../components/UserLogOut/UserLogOut";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import { styled } from "@mui/material/styles";
+
+// Styled component for the scrollable area
+const ScrollableDiv = styled(Paper)(({ theme }) => ({
+  maxHeight: "900px", // Set the maximum height for the scrollable area
+  overflowY: "auto", // Enable vertical scrolling if content overflows
+  border: "1px solid #ccc", // Add a border for visual separation
+  padding: theme.spacing(2), // Add padding as needed
+}));
 
 export default function HomePage({ user, setUser }) {
   const [menuItems, setMenuItems] = useState([]);
@@ -12,10 +21,8 @@ export default function HomePage({ user, setUser }) {
   const categoriesRef = useRef([]);
 
   useEffect(() => {
-    console.log("iam here");
     async function getItems() {
       const items = await itemsAPI.getAll();
-      console.log(`items ===> ${items[0].name}`);
       categoriesRef.current = [
         ...new Set(items.map((item) => item.categoryId.name)),
       ];
@@ -26,23 +33,25 @@ export default function HomePage({ user, setUser }) {
   }, []);
 
   return (
-    <main className="HomePage">
-      <aside>
-        <CategoryList
-          categories={categoriesRef.current}
-          activeCat={activeCat}
-          setActiveCat={setActiveCat}
-        />
-        {/* <Link to="/orders" className="button btn-sm">
-          PREVIOUS ORDERS
-        </Link> */}
-        <MenuList
-          menuItems={menuItems.filter(
-            (item) => item.categoryId.name === activeCat
-          )}
-        />
-      </aside>
-      {/* <UserLogOut user={user} setUser={setUser} /> */}
+    <main className="Main">
+      <div className="HomePage">
+        <ScrollableDiv>
+          <MenuList
+            menuItems={menuItems.filter(
+              (item) => item.categoryId.name === activeCat
+            )}
+          />
+        </ScrollableDiv>
+        <Box>
+        <div className="Cats">
+          <CategoryList
+            categories={categoriesRef.current}
+            activeCat={activeCat}
+            setActiveCat={setActiveCat}
+          />
+          </div>
+        </Box>
+      </div>
     </main>
   );
 }

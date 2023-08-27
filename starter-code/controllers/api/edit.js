@@ -1,26 +1,25 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 const User = require("../../models/user");
 
 module.exports = {
-  update: updatePass,
+  updateProfile,
 };
-async function updatePass(req, res) {
+
+async function updateProfile(req, res) {
   try {
-    const user = await User.updatePass(req.body);
-    const token = createJWT(user);
-    // The token is a string, but yes, we can
-    // res.json a string
-    res.json(token);
+    console.log("Updating profile");
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.name = req.body.name;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+    await user.save();
+
+    res.json({ name: req.user.name });
   } catch (err) {
-    res.status(400).json(err);
+    res.status(400).json({ message: err.message });
   }
-}
-function createJWT(user) {
-  return jwt.sign(
-    // extra data for the payload
-    { user },
-    process.env.SECRET,
-    { expiresIn: "24h" }
-  );
 }

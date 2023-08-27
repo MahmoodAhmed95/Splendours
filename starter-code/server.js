@@ -1,14 +1,16 @@
 const express = require("express");
-var path = require("path");
+const path = require("path");
 const favicon = require("serve-favicon");
 const logger = require("morgan");
 
 require("dotenv").config();
 // Connect to db after the dotenv above
 require("./config/database");
-
+require("./config/cron");
+const bodyParser = require("body-parser");
 const app = express();
-
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(logger("dev"));
 // Process data in body of request if
 // Content-Type: 'application/json'
@@ -26,7 +28,8 @@ app.use("/api/categories", require("./routes/api/categories"));
 app.use("/api/posts", require("./routes/api/posts"));
 app.use("/api/details", require("./routes/api/details"));
 app.use("/api/orders", require("./routes/api/orders"));
-
+app.use("/api/edits", require("./routes/api/edits"));
+app.use("/api/resets", require("./routes/api/resets"));
 // "catch-all" route that will match all GET requests
 // that don't match an API route defined above
 app.get("/*", function (req, res) {

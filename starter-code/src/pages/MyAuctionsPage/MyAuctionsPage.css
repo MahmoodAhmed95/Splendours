@@ -1,0 +1,33 @@
+body, h1, p, div {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* ... */
+  
+  .mainCard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px; /* Adding padding for spacing between cards */
+  }
+  
+  .card {
+    /* Your existing card styles */
+    /* ... */
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    width: calc(33.33% - 20px); /* Adjust width and padding as needed */
+    margin-bottom: 20px; /* Adding margin between cards */
+  }
+  
+  .postPic {
+    max-width: 100%;
+    height: auto;
+    /* Additional styling if needed */
+  }
+  
+  /* ... Other styles ... */
+  

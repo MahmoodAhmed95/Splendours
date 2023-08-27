@@ -1,74 +1,98 @@
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { Card, CardMedia, Typography, Button, IconButton } from "@mui/material";
 import * as ordersAPI from "../../utilities/orders-api";
-import { Link, useNavigate } from "react-router-dom";
 import * as itemsAPI from "../../utilities/items-api";
+import GavelIcon from "@mui/icons-material/Gavel";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import "./PostDetailsPage.css";
 
 export default function PostDetailsPage() {
-  const [item, setItem] = useState([]);
+  const [item, setItem] = useState("");
+  const [bidder, setBidder] = useState("");
+  const [refresh, setRefresh] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     async function fetchItems() {
-      // console.log(`does front end work? 1`);
-      const fetchedItems = await itemsAPI.getById(id);
-      setItem(fetchedItems);
-      // console.log(`does front end work?`);
+      try {
+        const fetchedItems = await itemsAPI.getById(id);
+        setItem(fetchedItems);
+      } catch (error) {
+        console.error(error);
+      }
     }
-
     fetchItems();
-  }, []);
+  }, [id,refresh]);
 
-  const navigate = useNavigate();
-  const [cart, setCart] = useState(null);
+  useEffect(() => {
+    async function setPrevBidder(itemId) {
+      try {
+        const setPrevBidder = await ordersAPI.setPrevBid(itemId);
+        if (setPrevBidder !== null) {
+          setBidder(setPrevBidder);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    if (item) {
+      setPrevBidder(item._id);
+    }
+  }, [item]);
 
-  function handleAddToBookmarks(itemId) {
-    // Add an item to bookmarks page
-    ordersAPI.addItemToBookmark(itemId);
+  async function handleAddToBookmarks(itemId) {
+    try {
+      await ordersAPI.addItemToBookmark(itemId);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  // Add this function
-  // async function handleChangeQty(itemId, newQty) {
-  //   const updatedCart = await ordersAPI.setItemQtyInCart(itemId, newQty);
-  //   setCart(updatedCart);
-  // }
+  async function handleSetBid(itemId) {
+    try {
+      const response = await ordersAPI.setNewBid(itemId);
+      setRefresh((prevRefresh)=> !prevRefresh)
+      setBidder(response.user.name);
+      setItem(response.post);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  // async function handleCheckout() {
-  //   await ordersAPI.checkout();
-  //   navigate("/orders");
-  // }
   if (!item) {
-    return <div>item not found</div>;
+    return <div>Item not found</div>;
   }
 
   return (
     <div className="mainCard">
-      <div className="card">
-        <img className="postPic" src={item.profile_img} />
-        <div>{item.name}</div>
-        <div>{item.description}</div>
-        <div>{item.bidCost}</div>
-        <div>{item.startDate}</div>
-        <div>{item.endDate}</div>
-        <div>{item.timeDuration}</div>
-        <div>{item.profile_img}</div>
-        {/* <div>{item.cloudinary_id}</div> */}
-        {item.reviews && item.reviews.content && (
-          <div>{item.reviews.content}</div>
-        )}
-        {item.reviews && item.reviews.rating && (
-          <div>{item.reviews.rating}</div>
-        )}
-        {item.reviews && item.reviews.userName && (
-          <div>{item.reviews.userName}</div>
-        )}
-        <div>
-          <button onClick={() => handleAddToBookmarks(item._id)}>
-            Add to bookmarks
-          </button>
+      <Card className="card">
+        <CardMedia
+          component="img"
+          height="200"
+          image={item.image}
+          alt="postImage"
+        />
+        <Typography variant="h6">{item.name}</Typography>
+        <Typography>{item.description}</Typography>
+        <Typography>{new Date(item.endDate).toLocaleDateString()}</Typography>
+        <div className="auction">
+          <Typography>Bid Increment: {item.increment}</Typography>
+          <Typography variant="subtitle1">
+            Latest Bid Price: {item.bidCost}
+          </Typography>
+          <Typography>Bidder: {bidder}</Typography>
+          <IconButton onClick={() => handleSetBid(item._id)}>
+            <GavelIcon />
+          </IconButton>
         </div>
-      </div>
+        <IconButton
+          onClick={() => handleAddToBookmarks(item._id)}
+          aria-label="Add to bookmarks"
+        >
+          <BookmarkBorderIcon />
+        </IconButton>
+      </Card>
     </div>
   );
 }

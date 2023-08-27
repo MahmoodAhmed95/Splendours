@@ -1,29 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const reviewSchema = new Schema(
-  {
-    content: {
-      type: String,
-      required: true,
-    },
-    rating: {
-      type: Number,
-      min: 1,
-      max: 5,
-      default: 3,
-      required: true,
-    },
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    userName: String,
-  },
-  {
-    timestamps: true,
-  }
-);
+
 const postSchema = new Schema(
   {
     name: {
@@ -42,22 +19,17 @@ const postSchema = new Schema(
       type: Number,
       default: 50,
     },
-    startDate: {
-      type: Date,
-      default: Date,
+    currentBidder: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
     endDate: {
       type: Date,
       default: Date,
     },
-    timeDuration: {
-      type: String,
-      default: "Not specified",
-    },
-    profile_img: String,
+    image: String,
     cloudinary_id: String,
-    reviews: [reviewSchema],
-
+    increment: Number,
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",

@@ -18,14 +18,20 @@ export function getToken() {
   // getItem will return null if the key does not exist
   const token = localStorage.getItem("token");
   if (!token) return null;
-  // Let's check if token has expired...
-  const payload = JSON.parse(atob(token.split(".")[1]));
-  if (payload.exp < Date.now() / 1000) {
-    // Token has expired
-    localStorage.removeItem("token");
+  try {
+    // Let's check if token has expired...
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    if (payload.exp < Date.now() / 1000) {
+      // Token has expired
+      localStorage.removeItem("token");
+      return null;
+    }
+    return token;
+  } catch (error) {
+    console.error("Failed to decode the token:", error);
+    // Handle the error, such as displaying an error message or fallback behavior
     return null;
   }
-  return token;
 }
 
 export function getUser() {
@@ -41,8 +47,17 @@ export async function login(credentials) {
   // Delegate the AJAX request to the users-api.js
   // module.
   const token = await usersAPI.login(credentials);
+  console.log(`===>>>${token.message}`);
+  // if (!token.message) {
   localStorage.setItem("token", token);
-  return getUser();
+  //return getUser();
+  let returnObj = {};
+  returnObj.user = getUser();
+  returnObj.message = token.message;
+  return returnObj;
+  // }
+  // display error
+  //return token;
 }
 export function checkToken() {
   // Just so that you don't forget how to use .then

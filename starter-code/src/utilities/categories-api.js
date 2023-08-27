@@ -7,3 +7,6 @@ export function addCategory(category) {
 export function showCategory() {
   return sendRequest(BASE_URL);
 }
+export function deleteCategory(categorySel) {
+  return sendRequest(`${BASE_URL}/delete/${categorySel}`, "DELETE");
+}

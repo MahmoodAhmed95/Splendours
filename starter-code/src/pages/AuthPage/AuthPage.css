@@ -9,8 +9,52 @@
     justify-content: center;
     margin: 20px;
   }
-
+  .authlogo {
+    width: 350px;
+  }
+  
   .auth-link {
     color: var(--brand-primary-color);
   }
+
+  .form-container {
+    display: flex;
+    /* width: 360px; */
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
   
+  .logo-container{
+    margin-bottom: 30px;
+  }
+  .title {
+    color: #172815;
+    text-align: left;
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .input-box {
+    background: #ffffff;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: #f2f2f2;
+    border-width: 1px;
+    padding: 0px 12px 0px 12px;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    height: 36px;
+    position: relative;
+  }
+  .form-container btn {
+    align-items: center;
+  }

@@ -1,23 +1,24 @@
+// import cloudinary from "cloudinary";
 import * as categoryApi from "../../utilities/categories-api";
-import { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import * as postApi from "../../utilities/posts-api";
+import "./NewPostPage.css";
 export default function NewPostPage() {
   const [post, setPost] = useState({
     name: "",
     description: "",
     categoryId: "",
     bidCost: "",
-    startDate: "",
+    increment: "",
     endDate: "",
-    timeDuration: "",
-    profile_img: "",
+    image: "",
   });
   const [alertMessage, setAlertMessage] = useState("");
   const [category, setCategory] = useState([]);
-
   async function handleSubmit(e) {
     e.preventDefault();
     try {
+      console.log(post);
       const pos = await postApi.addPost(post);
       setPost(pos);
       setAlertMessage("Post Added Successfully");
@@ -38,14 +39,40 @@ export default function NewPostPage() {
     returnCategories();
   }, []);
 
-  //handle the image
-  // function handleImageChange(event) {
-  //   const file = event.target.files[0];
-  //   setPost((prevPost) => ({
-  //     ...prevPost,
-  //     profile_img: file,
-  //   }));
-  // }
+  // // // cloud // // //
+  function handleImageUpload(evt) {
+    // get the image uploaded in input file, it will be the first element in files arr
+    const file = evt.target.files[0];
+    console.log(file);
+
+    TransformFileData(file);
+  }
+  // transfer file/image to base64 string
+  function TransformFileData(file) {
+    //The FileReader object lets web applications asynchronously read the contents of files (or raw data buffers) stored on the user's computer, using File or Blob objects to specify the file or data to read.
+    // FileReader can only access the contents of files that the user has explicitly selected, either using an HTML <input type="file"> element or by drag and drop
+    // filereader is js object
+    const reader = new FileReader();
+
+    if (file) {
+      // Starts reading the contents of the specified Blob, once finished, the "result" attribute contains a data: URL representing the file's data.
+      reader.readAsDataURL(file);
+      // Fired when a read has completed, successfully or not.
+      reader.onloadend = () => {
+        console.log(reader.result);
+        setPost({ ...post, image: reader.result });
+        // setAlertMessage("");
+      };
+    } else {
+      // no image
+      setPost({ ...post, image: "" });
+      setAlertMessage("ERROR");
+    }
+  }
+  // Get tomorrow's date
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowFormatted = tomorrow.toISOString().split("T")[0];
   return (
     <>
       <h1>New Post Page</h1>
@@ -57,6 +84,7 @@ export default function NewPostPage() {
             name="name"
             value={post.name}
             onChange={handleOnChange}
+            required
           />
         </label>
         <br />
@@ -67,6 +95,7 @@ export default function NewPostPage() {
             name="description"
             value={post.description}
             onChange={handleOnChange}
+            required
           />
         </label>
         <br />
@@ -76,7 +105,9 @@ export default function NewPostPage() {
             name="categoryId"
             value={post.categoryId}
             onChange={handleOnChange}
+            required
           >
+            <option>Choose Category</option>
             {category.map((c) => {
               return (
                 <option key={c._id} value={c._id}>
@@ -92,19 +123,22 @@ export default function NewPostPage() {
           <input
             type="number"
             name="bidCost"
-            placeholder="Minimum 50BHD"
+            placeholder="Minimum 10BHD"
             value={post.bidCost}
             onChange={handleOnChange}
+            min="10"
+            required
           />
         </label>
         <br />
         <label>
-          Start Date:
+          Increment:
           <input
-            type="date"
-            name="startDate"
-            value={post.startDate}
+            type="number"
+            name="increment"
+            value={post.increment}
             onChange={handleOnChange}
+            required
           />
         </label>
         <br />
@@ -113,28 +147,20 @@ export default function NewPostPage() {
           <input
             type="date"
             name="endDate"
+            min={tomorrowFormatted}
             value={post.endDate}
             onChange={handleOnChange}
-          />
-        </label>
-        <br />
-        <label>
-          Time Duration:
-          <input
-            type="count"
-            name="timeDuration"
-            value={post.timeDuration}
-            onChange={handleOnChange}
+            required
           />
         </label>
         <br />
         <label>
           Post Image:
           <input
-            type="text"
-            name="profile_img"
-            value={post.profile_img}
-            onChange={handleOnChange}
+            type="file"
+            name="image"
+            accept="image/jpeg, image/png ,image/jpg"
+            onChange={handleImageUpload}
           />
         </label>
         <br />

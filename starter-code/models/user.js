@@ -14,13 +14,25 @@ const userSchema = new Schema(
       lowercase: true,
       required: true,
     },
+    attempt: { type: Number, default: 0, required: true },
     bookMarks: [
       {
         type: Schema.Types.ObjectId,
         ref: "Post",
       },
     ],
+    userBids: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
     userType: { type: Boolean, required: true },
+    address: { type: String },
+    paymentMethod: { type: String },
+    acceptedTerms: { type: Boolean },
+    error: { type: String },
+    step: { type: Number },
     isAdmin: { type: Boolean, default: false, required: true },
     password: {
       type: String,

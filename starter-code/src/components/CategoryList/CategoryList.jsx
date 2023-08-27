@@ -1,17 +1,26 @@
-import "./CategoryList.css";
+import React from 'react';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import { styled } from '@mui/material/styles';
+
+const StyledList = styled(List)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '10px', // Adjust as needed
+});
 
 export default function CategoryList({ categories, activeCat, setActiveCat }) {
   const cats = categories.map((cat) => (
-    // categories buttons
-    <button
+    <ListItemButton
       key={cat}
-      className={cat === activeCat ? "active" : ""}
-      // FYI, the below will also work, but will give a warning
-      // className={cat === activeCat && 'active'}
+      selected={cat === activeCat}
       onClick={() => setActiveCat(cat)}
     >
-      {cat}
-    </button>
+      <ListItemText primary={cat} />
+    </ListItemButton>
   ));
-  return <ul className="CategoryList">{cats}</ul>;
+
+  return <StyledList>{cats}</StyledList>;
 }

@@ -1,30 +1,35 @@
+/* App Styles */
 .App {
-  text-align: center;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-template-areas:
-    "sidebar header"
-    "sidebar content"
-    "sidebar content"
-    "sidebar content"
-    "sidebar content"
-    "sidebar  footer";
-}
-@media (max-width: 500px) {
-  .App {
-    grid-template-columns: 4fr;
-    grid-template-areas:
-      "header"
-      "sidebar"
-      "content"
-      "footer";
-  }
-}
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+margin: 3px;
+font-family: 'Trocchi', serif;
+
 }
 
+.app-content {
+margin-top: 70px;
+}
+.content {
+  display:grid;
+  grid-template-columns: 20% 80%;
+  column-gap: 10px;
+
+}
+
+
+
+
+@media (max-width: 400px) {
+  .app-content {
+    display:grid;
+    grid-template-columns: 20% 80%;
+    column-gap: 10px;
+  }
+}
+
+.auth-page {
+ width: 80%;
+ align-self: center;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -67,3 +72,5 @@ a:hover {
 a {
   color: black;
 }
+
+

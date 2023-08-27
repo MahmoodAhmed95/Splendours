@@ -1,3 +1,16 @@
 .MenuListItem {
-  width: 500px;
+  width: 550px;
+}
+/* MenuListItem.css */
+.MenuListItem {
+  background-color: #FFFCF1;
+}
+
+.details-link:hover .menu-item-name {
+  color: #EFBB54;
+}
+
+.menu-item-name {
+  color: #4E4E59;
+  transition: color 0.3s;
 }

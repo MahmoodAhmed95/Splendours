@@ -1,0 +1,74 @@
+.HomePage {
+    display:grid;
+    grid-template-columns: 80% 15%;
+    grid-gap: 5px;
+    
+}
+
+.cats {
+    display:flex;
+    flex-direction: column;
+    
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 16px;
+}
+
+  .Cats h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  
+  .Cats .CategoryList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .Cats .CategoryButton {
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  /* Mobile-friendly Cards */
+  @media (max-width: 768px) {
+    .Main {
+      padding: 16px; /* Add some padding to the main content */
+    }
+  
+    .HomePage {
+     display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  
+    .Cats {
+        display: flex;
+      flex-direction: row;
+     
+      margin-top: 0;
+      background-color: transparent;
+    }
+  
+    .Cats h2 {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+  
+    .Cats .CategoryList {
+      justify-content: center;
+    }
+  
+    .MenuList {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+  
+    .MenuListItem img {
+      width: 100%; /* Make images full width */
+    }
+  }
+  

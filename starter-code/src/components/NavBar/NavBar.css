@@ -1,0 +1,53 @@
+
+/* NavBar.css */
+.nav-bar {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 36px;
+  align-items: flex-start;
+  align-self: stretch;
+  }
+  
+.logo {
+    width: auto;
+    height: 55px;
+  }
+.logosolo {
+  width: 37px;
+  margin-left: 12px;
+  margin-right: 20px;
+}
+  
+.logo-container {
+    margin-right: 1rem;
+  }
+  
+.welcome {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none; 
+    color: inherit; 
+  }
+
+.nav-lists a:hover {
+    text-decoration: none; 
+    color: #EFBB54;
+}
+  
+.nav-button {
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+.nav-button:hover {
+    text-decoration: none;
+  }
+  
+
+  

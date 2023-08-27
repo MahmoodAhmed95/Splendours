@@ -3,49 +3,53 @@ import * as editApi from "../../utilities/edits-api";
 
 export default function ProfilePage({ user }) {
   const [alertMessage, setAlertMessage] = useState("");
-
   const [update, setUpdate] = useState({
-    name: "",
+    name: user.name,
     password: "",
     confirm: "",
   });
-  // new cvode // // // // // //
+
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+
+    if (update.password !== update.confirm) {
+      setAlertMessage("Passwords do not match");
+      return;
+    }
+
     try {
-      const pas = await editApi.updatePass(update);
-      setUpdate(pas);
-      setAlertMessage("Password Updated Successfully");
-    } catch {
-      setAlertMessage("Update Password Failed - Try Again");
+      const updatedUser = await editApi.updateProfile(update);
+      setUpdate({
+        name: updatedUser.name,
+        password: "",
+        confirm: "",
+      });
+      setAlertMessage("Profile Updated Successfully");
+    } catch (err) {
+      setAlertMessage("Update Profile Failed - Try Again");
     }
   };
 
-  // const handleChange = (evt) => {
-  //   setUpdate({
-  //     [evt.target.name]: evt.target.value,
-  //     error: "",
-  //   });
-  // };
-  const [inputValue, setInputValue] = useState("");
-
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
+  const handleChange = (evt) => {
+    setUpdate((prevUpdate) => ({
+      ...prevUpdate,
+      [evt.target.name]: evt.target.value,
+    }));
   };
-  // // // untill here // // //
+
   const disable = update.password !== update.confirm;
 
   return (
     <>
-      <h1>Profile Page</h1>
+      <h1>Edit Profile</h1>
       <div>
         <div className="form-container">
           <form autoComplete="off" onSubmit={handleSubmit}>
             <label>Name</label>
             <input
-              autoComplete="off"
               type="text"
               name="name"
+              placeholder={user.name}
               value={update.name}
               onChange={handleChange}
               required
@@ -55,6 +59,7 @@ export default function ProfilePage({ user }) {
               type="password"
               name="password"
               placeholder={""}
+              value={update.password}
               onChange={handleChange}
               required
             />
@@ -63,6 +68,7 @@ export default function ProfilePage({ user }) {
               type="password"
               name="confirm"
               placeholder={""}
+              value={update.confirm}
               onChange={handleChange}
               required
             />
